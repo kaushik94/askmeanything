@@ -16,7 +16,7 @@
 
 .lcb-answer-time:extend(.lcb-message-time) { }
 
-#lcb-write-answer {
+.write-answer-modal {
     .modal-body {
         padding: 0;
         .ql-editor {
@@ -24,6 +24,7 @@
         }
     }
 }
+
 #toolbar {
     border-bottom: 1px solid #E5E5E5;
 }
@@ -57,8 +58,12 @@
     margin: 5px;
 }
 
-.answer-text-main {
+.answer-publish {
+    font-size: 1.2em;    
+}
 
+.answer-dismiss {
+    font-color: red;
 }
 
 .audio-answer-record {
@@ -81,11 +86,9 @@
     transition-duration: 0.25s;
     -webkit-transition-property: background-color,-webkit-box-shadow;
     transition-property: background-color,box-shadow;
-    right: 50%;
     width: 56px;
     z-index: 2;
 }
-
-#record-audio-answer {
-    color:white;
+.position-answer-record {
+    right: 50%;
 }

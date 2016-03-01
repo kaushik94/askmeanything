@@ -22,4 +22,14 @@ module.exports = function() {
         res.sendFile(path.resolve(__dirname, '../misc/robots.txt'));
     });
 
+    app.post('/csp-violation-reports', function(req, res) {
+        // Do something better !
+        if (req.body) {
+            console.log('CSP Violation: ', req.body)
+        } else {
+            console.log('CSP Violation: No data received!')
+        }
+        res.status(204).end();
+    });
+
 };

@@ -20,3 +20,4 @@
 //= require common.js
 //= require vendor/recordrtc/RecordRTC.js
 //= require vendor/recorderjs/recorder.js
+//= require vendor/webAudioRecorder/lib/WebAudioRecorder.js

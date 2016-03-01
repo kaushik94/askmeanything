@@ -89,16 +89,21 @@ app.use(helmet.hsts({
     force: httpsEnabled,
     preload: true
 }));
-app.use(helmet.contentSecurityPolicy({
-    defaultSrc: ['\'none\''],
-    connectSrc: ['*'],
-    scriptSrc: ['\'self\'', '\'unsafe-eval\''],
-    styleSrc: ['\'self\'', 'fonts.googleapis.com', '\'unsafe-inline\''],
-    fontSrc: ['\'self\'', 'fonts.gstatic.com'],
-    mediaSrc: ['\'self\''],
-    objectSrc: ['\'self\''],
-    imgSrc: ['*']
-}));
+// app.use(helmet.csp({
+//     directives: {
+//         defaultSrc: ['\'none\''],
+//         connectSrc: ['*'],
+//         childSrc: ['\'self\'', '\'blob:\''],
+//         scriptSrc: ['\'self\'', '\'unsafe-eval\''],
+//         styleSrc: ['\'self\'', 'fonts.googleapis.com', '\'unsafe-inline\''],
+//         fontSrc: ['\'self\'', 'fonts.gstatic.com'],
+//         mediaSrc: ['\'self\''],
+//         objectSrc: ['\'self\''],
+//         imgSrc: ['*'],
+//         reportUri: '/csp-violation-reports'
+//     },
+//     reportOnly: true
+// }));
 
 var bundles = {};
 app.use(require('connect-assets')({

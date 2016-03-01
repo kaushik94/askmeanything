@@ -1,0 +1,79 @@
+{
+  "_args": [
+    [
+      "jq-ajax-progress",
+      "/Users/ghost/Desktop/askmeanything"
+    ]
+  ],
+  "_from": "jq-ajax-progress@*",
+  "_id": "jq-ajax-progress@0.1.6",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/jq-ajax-progress",
+  "_nodeVersion": "0.12.7",
+  "_npmUser": {
+    "email": "al.lizurchik@gmail.com",
+    "name": "alizurchik"
+  },
+  "_npmVersion": "2.11.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "jq-ajax-progress",
+    "raw": "jq-ajax-progress",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "*",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jq-ajax-progress/-/jq-ajax-progress-0.1.6.tgz",
+  "_shasum": "7c877c8d5d2a1424225f9b0b8bd9609e162695b7",
+  "_shrinkwrap": null,
+  "_spec": "jq-ajax-progress",
+  "_where": "/Users/ghost/Desktop/askmeanything",
+  "author": {
+    "email": "al.lizurchik@gmail.com",
+    "name": "Alexey Lizurchik",
+    "url": "http://likerrr.ru"
+  },
+  "bugs": {
+    "url": "https://github.com/likerRr/jq-ajax-progress/issues"
+  },
+  "dependencies": {
+    "jquery": "^2.1.4"
+  },
+  "description": "Lightweight jQuery plugin that adds support of `progress` and `uploadProgress` promises to $.ajax()",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.2.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "7c877c8d5d2a1424225f9b0b8bd9609e162695b7",
+    "tarball": "http://registry.npmjs.org/jq-ajax-progress/-/jq-ajax-progress-0.1.6.tgz"
+  },
+  "gitHead": "9257b2bebd734b23ec0e6150c44364468fd543f8",
+  "homepage": "https://github.com/likerRr/jq-ajax-progress#readme",
+  "license": "MIT",
+  "main": "src/jq-ajax-progress.min.js",
+  "maintainers": [
+    {
+      "name": "alizurchik",
+      "email": "al.lizurchik@gmail.com"
+    }
+  ],
+  "name": "jq-ajax-progress",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/likerRr/jq-ajax-progress.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.6"
+}

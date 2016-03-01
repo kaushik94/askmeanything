@@ -271,9 +271,8 @@
     window.LCB.WriteAnswerModalView = Backbone.View.extend({
         events: {
             'click #lcb-submit-answer': 'submitAnswer',
-            'click #record-audio-answer': 'audioAnswer',
-            'click #stop-audio-answer': 'stopAudioAnswer',
-            'click #publish-audio-answer': 'publishAudioAnswer'
+            'click #record-audio-answer': 'clickMicrophone',
+            'click #save-audio-answer': 'saveAudioAnswer'
         },
         initialize: function(options) {
             this.client = options.client;
@@ -285,8 +284,10 @@
                 theme: 'snow'
             });
             this.render();
-            this.recordAudio = false;
+            this.audioBlob = false;
+            this.recording = false;
             var that = this;
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
             navigator.getUserMedia({
                         audio: true
                 },
@@ -340,6 +341,7 @@
             this.$el.find('.modal-title').text(listElement ? listElement.find('.lcb-message-text').text() : 'Write Answer');
         },
         get_signed_request: function(file, cb){
+            var that = this;
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/sign_s3?file_name="+file.name+"&file_type="+file.type);
             xhr.overrideMimeType('text/plain; charset=x-user-defined');
@@ -347,36 +349,76 @@
                 if(xhr.readyState === 4){
                     if(xhr.status === 200){
                         var response = JSON.parse(xhr.responseText);
-                        cb(file.blob, response.post_url);
+                        cb(file.blob, response.post_url, that.showUploadProgress);
                     }
                     else{
-                        alert("Could not get signed URL.");
+                        // Notify TBD                    
                     }
                 }
             };
             xhr.send();
         },
-        recordAudioAnswer: function(){
-            this.recordAudio.startRecording();
+        toggleMicrophone: function(on){
+            // Temporary !
+            if(on){
+                $('#record-audio-answer').html(
+                    '<i  class="fa fa-2x fa-microphone"></i>'
+                    );
+            }
+            else{
+                $('#record-audio-answer').html(
+                    '<i  class="fa fa-2x fa-pause"></i>'
+                    );
+            }
         },
-        pauseAudioAnswer: function(){
-            this.recordAudio.pauseRecording();
+        clickMicrophone: function(){
+            if(this.recording){
+                this.recording = false;
+                this.toggleMicrophone(true);
+                // this.recordAudio.pauseRecording();
+                this.saveAudioAnswer();
+            }
+            else{
+                this.recording = true;
+                this.toggleMicrophone(false);
+                this.recordAudio.startRecording();
+            }
         },
-        stopAudioAnswer: function(){
+        saveAudioAnswer: function(){
             var that = this;
             that.recordAudio.stopRecording(
                 function() {
-                    that.nowrecording = false
+                    if(that.recording){
+                        that.recording = false;
+                        that.toggleMicrophone(true);
+                    }
+                    that.recordAudio.clearRecordedData();
                     that.recordAudio.getDataURL(function(audioDataURL){
                         var blob = that.recordAudio.getBlob();
-                        that.submitAudioAnswer(blob);
+                        that.audioBlob = blob;
+                        that.uploadAudioAnswer(blob);
                     });
             });
+        },
+        checkUploadAudioAnswer: function(){
+            // Not implemented
+        },
+        compressAudioAnswer: function(){
+            // Not implemented
+        },
+        showUploadProgress: function(percentComplete){
+            // Temporary !
+            $('#record-audio-answer').css(
+                    "background", "green"
+                );
+            $('#record-audio-answer').html(
+                    percentComplete
+                );
         },
         showAudioAnswer: function(){
             this.recordAudio.clearRecordedData();
         },
-        submitAudioAnswer: function(file){
+        uploadAudioAnswer: function(file){
             var that = this,
                 file_name = that.$messageId+'.wav';
 
@@ -388,20 +430,29 @@
                 that.uploadToS3
             );
         },
-        uploadToS3: function(file, post_url){
-            var that = this;
+        uploadToS3: function(file, post_url, cb){
             $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = Math.round((evt.loaded / evt.total) * 100);
+                            cb(percentComplete);
+                        }
+                    }, false);
+                    return xhr;
+                },
                 url: post_url,
                 type: 'PUT',
                 data: file,
                 processData: false,
                 contentType: 'wav',
-                success: function(status){
+                success: function(){
                     swal('Answer Published!', 'Your answer has been published.',
-                         'success');
-                }
-                error: function(err){
-                    swal('Shit!', 'Some error occured and your answer was not published.', 'error');
+                     'success');
+                },
+                fail: function(err){
+                    swal('Shit!', 'Your answer could not be published due to a technical error.', 'error');
                 }
             });
         },
@@ -424,14 +475,6 @@
             });
             this.$el.modal('hide');
             this.$editor.setHTML('');
-        },
-        success: function() {
-            swal('Answer Published!', 'Your answer has been published.',
-                 'success');
-            this.$el.modal('hide');
-        },
-        error: function() {
-            swal('Woops!', 'Your answer was not published.', 'error');
         }
     })
 
