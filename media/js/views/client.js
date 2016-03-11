@@ -83,7 +83,7 @@
                 el: this.$el.find('#lcb-giphy')
             });
             this.writeAnswerModal = new window.LCB.WriteAnswerModalView({
-                el: this.$el.find("#lcb-write-answer"),
+                el: this.$el.find("#write-answer-modal"),
                 client: this.client
             });
             //

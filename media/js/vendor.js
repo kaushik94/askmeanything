@@ -16,8 +16,9 @@
 //= require vendor/at/jquery.caret.js
 //= require vendor/at/jquery.atwho.js
 //= require vendor/backbone.keys/backbone.keys.js
-//= require vendor/quill/quill.min.js
 //= require common.js
 //= require vendor/recordrtc/RecordRTC.js
 //= require vendor/recorderjs/recorder.js
 //= require vendor/webAudioRecorder/lib/WebAudioRecorder.js
+//= require vendor/tinymce/js/tinymce/tinymce.min.js
+//= require vendor/tinymce/js/tinymce/jquery.tinymce.min.js

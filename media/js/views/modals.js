@@ -276,13 +276,6 @@
         },
         initialize: function(options) {
             this.client = options.client;
-            this.$editor = new Quill('#editor', {
-                modules: {
-                    'toolbar': { container: '#toolbar' },
-                    'link-tooltip': true
-                },
-                theme: 'snow'
-            });
             this.render();
             this.audioBlob = false;
             this.recording = false;
@@ -306,7 +299,7 @@
             this.nowrecording = false;
         },
         render: function() {
-            this.$el.on('show.bs.modal', _.bind(this.fillFields, this));
+            this.$el.on('show.bs.modal', _.bind(this.initEditor, this));
         },
         audioAnswer: function(e){
             if(this.nowrecording){
@@ -318,27 +311,29 @@
                 this.nowrecording = true;
             }
         },
-        fillFields: function(event) {
-            var $button = $(event.relatedTarget),
+        initEditor: function(e) {
+            var $button = $(e.relatedTarget),
                 listElement = null;
-
-            this.$editor.setHTML('');
             this.$questionAnswered = null;
             this.$messageId = null;
-
-            if($button.data('edit') === true) {
-                this.$messageId = $button.data('message');
-                listElement = $('#'+$button.data('id'));
-                this.$editor.setHTML(listElement.find('.lcb-answer-text').html());
-            }
-
-            else {
-                this.$messageId = $button.data('id');
-                listElement = $('#'+this.$messageId);
-                this.$questionAnswered = $button.data('answered');
-            }
             this.$roomId = $button.data('room');
             this.$el.find('.modal-title').text(listElement ? listElement.find('.lcb-message-text').text() : 'Write Answer');
+            $('#editor').tinymce({
+              height: 400,
+              resize: false,
+              plugins: [
+                'advlist autolink lists link image charmap print preview',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code',
+                'emoticons'
+              ],
+              menubar: false,
+              toolbar: 'bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | link image emoticons | fontselect',
+              content_css: [
+                '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+                '//www.tinymce.com/css/codepen.min.css'
+              ]
+            });
         },
         get_signed_request: function(file, cb){
             var that = this;
@@ -466,15 +461,14 @@
 
             if (!this.client.status.get('connected')) return;
 
-            var $answer = this.$editor.getHTML();
-            if (!this.$editor.getLength()) return;
+            // Gotta change this.
+            var $answer = '';
             this.client.events.trigger('answers:publish', {
                 room: this.$roomId,
                 message: this.$messageId,
                 text: $answer
             });
             this.$el.modal('hide');
-            this.$editor.setHTML('');
         }
     })
 

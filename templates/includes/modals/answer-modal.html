@@ -1,78 +1,19 @@
-<div id="lcb-write-answer" class="modal fade" data-backdrop=false>
+<!--
+Problem inserting/editing links (<a href>) in the text in TinyMCE 4, in combination with Twitter Bootstrap modal popup.
+Chrome/Firefox: Can't insert/edit the Url in the pop-up
+IE9/10: Can edit the Url, but doesn't save changes
+-->
+
+<!-- Default modal example from: http://twitter.github.io/bootstrap/javascript.html#modals -->
+
+<div id="write-answer-modal" class="modal fade" data-backdrop=false>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form role="form" class="lcb-write-answer">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"><$ __('Write Answer') $></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <!-- Create toolbar container -->
-                        <div id="toolbar">
-                            <!-- Add a format group -->
-                            <span class="ql-format-group">
-                                <!-- Add font dropdown -->
-                                <select class="ql-font">
-                                    <option value="sans-serif" selected>Sans Serif</option>
-                                    <option value="Georgia, serif">Serif</option>
-                                    <option value="Monaco, \'Courier New\', monospace">Monospace</option>
-                                </select>
-                                <!-- Add font size dropdown -->
-                                <select class="ql-size">
-                                    <option value="10px">Small</option>
-                                    <option value="13px" selected>Normal</option>
-                                    <option value="18px">Large</option>
-                                    <option value="32px">Huge</option>
-                                </select>
-                            </span>
+            <div class="modal-body">
+                <!-- content in modal, tinyMCE 4 texarea -->
+                <div id="editor"></div>
 
-                            <!-- Add a format group -->
-                            <span class="ql-format-group">
-                                <span title="Bold" class="ql-format-button ql-bold"></span>
-                                <span class="ql-format-separator"></span>
-                                <span title="Italic" class="ql-format-button ql-italic"></span>
-                                <span class="ql-format-separator"></span>
-                                <span title="Underline" class="ql-format-button ql-underline"></span>
-                                <span class="ql-format-separator"></span>
-                                <span title="Strikethrough" class="ql-format-button ql-strike"></span>
-                            </span>
-
-                            <!-- Add a format group -->
-                            <span class="ql-format-group">
-                                <span title="List" class="ql-format-button ql-list"></span>
-                                <span class="ql-format-separator"></span>
-                                <span title="Bullet" class="ql-format-button ql-bullet"></span>
-                                <span class="ql-format-separator"></span>
-                                <select title="Text Alignment" class="ql-align">
-                                    <option value="left" label="Left" selected=""></option>
-                                    <option value="center" label="Center"></option>
-                                    <option value="right" label="Right"></option>
-                                    <option value="justify" label="Justify"></option>
-                                </select>
-                                <span class="ql-format-separator"></span>
-                            </span>
-
-                            <!-- Add a format group -->
-                            <span class="ql-format-group">
-                                <span title="Link" class="ql-format-button ql-link"></span>
-                            </span>
-                        </div>
-                        <div id="editor">
-                            <div></div>
-                        </div>
-                        <button id="record-audio-answer" type="button" class="audio-answer-record">
-                            <i  class="fa fa-2x fa-microphone"></i>
-                        </button>
-                        <button id="stop-audio-answer" type="button" class="btn btn-primary">Stop</button>
-                        <button id="publish-audio-answer" type="button" class="btn btn-primary">Publish</button>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><$ __('Cancel') $></button>
-                    <button type="button" id="lcb-submit-answer" class="btn btn-primary"><$ __('Save') $></button>
-                </div>
-            </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
+</div>
