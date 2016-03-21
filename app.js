@@ -47,6 +47,8 @@ if (httpsEnabled) {
     app = express().http().io();
 }
 
+app.use("/C93305D0567C9FACA666AEE7A55E50C7.txt", express.static('C93305D0567C9FACA666AEE7A55E50C7.txt'));
+
 if (settings.env === 'production') {
     app.set('env', settings.env);
     app.set('json spaces', undefined);
