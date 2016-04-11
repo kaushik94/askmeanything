@@ -29,7 +29,7 @@ RUN set -x \
 &&  rm -rf /tmp/npm* \
 &&  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $BUILD_DEPS
 
-ENV LCB_DATABASE_URI=mongodb://mongo/letschat \
+ENV LCB_DATABASE_URI=mongodb://mongo/ama \
     LCB_HTTP_HOST=0.0.0.0 \
     LCB_HTTP_PORT=8080 \
     LCB_XMPP_ENABLE=true \
