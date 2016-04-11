@@ -1,7 +1,7 @@
 FROM phusion/baseimage
 MAINTAINER KAUSHIK
 
-ENV TAR_GZ_URL=https://github.com/sdelements/lets-chat/archive/master.tar.gz \
+ENV TAR_GZ_URL=https://github.com/askmeanything-app/askmeanything/archive/configure-aws-eb.tar.gz \
     BUILD_DEPS='g++ gcc git make python' \
     LCB_PLUGINS='lets-chat-ldap lets-chat-s3'
 
@@ -34,11 +34,20 @@ ENV LCB_DATABASE_URI=mongodb://mongo/letschat \
     LCB_HTTP_PORT=8080 \
     LCB_XMPP_ENABLE=true \
     LCB_XMPP_PORT=5222
-RUN rsync -a /* /usr/src/app
 
-EXPOSE 8080 5222
+ADD $TAR_GZ_URL ./master.tar.gz
+
+RUN tar -xzvf master.tar.gz \
+&&  cp -a askmeanything-configure-aws-eb/. . \
+&&  rm -rf lets-chat-master
 
 VOLUME ["/usr/src/app/config"]
 VOLUME ["/usr/src/app/uploads"]
+
+RUN groupadd -r node \
+&&  useradd -r -g node node \
+&&  chown node:node uploads
+
+EXPOSE 8080 5222
 
 CMD ["npm", "start"]

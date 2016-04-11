@@ -1,12 +1,12 @@
 //
-// Let's Chat
+// Ask Me Anything
 //
 
 'use strict';
 
-process.title = 'letschat';
+process.title = 'ama';
 
-require('colors');
+// require('colors');
 
 var _ = require('lodash'),
     fs = require('fs'),
