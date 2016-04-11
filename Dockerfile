@@ -17,8 +17,7 @@ RUN \
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 RUN npm install npm -g
-RUN npm install 
-RUN npm install -g migroose-cli
+RUN npm install
 
 RUN set -x \
 &&  apt-get install -y $BUILD_DEPS --no-install-recommends \
@@ -30,14 +29,12 @@ RUN set -x \
 &&  rm -rf /tmp/npm* \
 &&  apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false $BUILD_DEPS
 
-
 ENV LCB_DATABASE_URI=mongodb://mongo/letschat \
     LCB_HTTP_HOST=0.0.0.0 \
     LCB_HTTP_PORT=8080 \
     LCB_XMPP_ENABLE=true \
     LCB_XMPP_PORT=5222
-
-USER node
+RUN rsync -a /* /usr/src/app
 
 EXPOSE 8080 5222
 
